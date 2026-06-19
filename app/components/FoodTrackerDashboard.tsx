@@ -259,7 +259,7 @@ function ChartSection({ title, data }: { title: string; data: MonthlyData[] }) {
           <span>July 2026</span>
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={1600}>
+      <ResponsiveContainer width="100%" height={2200}>
         <BarChart
           data={data}
           layout="vertical"
@@ -267,7 +267,7 @@ function ChartSection({ title, data }: { title: string; data: MonthlyData[] }) {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis type="number" />
-          <YAxis dataKey="name" type="category" width={140} />
+          <YAxis dataKey="name" type="category" width={140} interval={0} />
           <Tooltip />
           <Bar dataKey="Jun 2026" fill="#3b82f6" />
           <Bar dataKey="Jul 2026" fill="#059669" />
