@@ -3,8 +3,14 @@ const fs = require('fs');
 const path = require('path');
 
 async function setupDatabase() {
+  if (!process.env.DATABASE_URL) {
+    console.error('❌ ERROR: DATABASE_URL environment variable is not set!');
+    console.error('Please create a .env.local file with your Neon connection string.');
+    process.exit(1);
+  }
+
   const client = new Client({
-    connectionString: process.env.DATABASE_URL || 'postgresql://neondb_owner:npg_N7rAnogdZC4y@ep-raspy-paper-atan9b0a.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require',
+    connectionString: process.env.DATABASE_URL,
   });
 
   try {
