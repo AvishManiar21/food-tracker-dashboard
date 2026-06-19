@@ -1,191 +1,184 @@
-# Food Tracker Dashboard with PostgreSQL
+# Food Tracker Dashboard
 
-A full-stack interactive web application for tracking daily food product quantities across three bucket sizes (Small, Medium, Large) for June and July 2026. Built with React, Node.js, Express, and PostgreSQL.
+A modern full-stack web application for tracking daily food product quantities across three bucket sizes (Small, Medium, Large) for June and July 2026.
 
-## Features
+Built with **Next.js 14**, **TypeScript**, **PostgreSQL (Neon)**, and **Recharts**.
 
-- **Real-time Data Entry**: Add food quantities with instant database persistence
-- **PostgreSQL Database**: Reliable, permanent data storage
-- **Interactive Charts**: Three horizontal bar charts comparing June vs July data
-- **59 Products**: Track all food products across three bucket sizes
-- **Monthly Aggregation**: Automatic calculation of monthly totals
-- **Professional UI**: Clean, responsive design with visual feedback
+🌐 **[Live Demo](#)** | 📊 **[GitHub](https://github.com/AvishManiar21/food-tracker-dashboard)**
 
-## Tech Stack
+---
 
-### Frontend
-- React 18 (via CDN)
-- Recharts 2.10 for data visualization
-- Vanilla JavaScript with Babel for JSX
+## ✨ Features
 
-### Backend
-- Node.js
-- Express.js
-- PostgreSQL (pg library)
-- CORS enabled
+- 📊 **Real-time Data Entry** - Add food quantities with instant database persistence
+- 💾 **Cloud PostgreSQL** - Neon serverless database (3GB free)
+- 📈 **Interactive Charts** - Three horizontal bar charts comparing June vs July
+- 🎯 **59 Products** - Track all food products across three bucket sizes
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
+- ⚡ **Fast Performance** - Next.js 14 with App Router
+- 🔒 **Secure** - Environment variables for sensitive data
 
-## Prerequisites
+---
 
-Before you begin, ensure you have the following installed:
+## 🛠️ Tech Stack
 
-- **Node.js** (v14 or higher) - [Download here](https://nodejs.org/)
-- **PostgreSQL** (v12 or higher) - [Download here](https://www.postgresql.org/download/)
-- **npm** (comes with Node.js)
+**Frontend:**
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Recharts for data visualization
 
-## Installation & Setup
+**Backend:**
+- Next.js API Routes
+- PostgreSQL (Neon serverless)
+- pg library
 
-### Step 1: Install PostgreSQL
+**Deployment:**
+- Vercel (Frontend + API)
+- Neon (Database)
 
-1. Download and install PostgreSQL from https://www.postgresql.org/download/
-2. During installation, remember your postgres user password
-3. Make sure PostgreSQL service is running
+---
 
-### Step 2: Create Database
+## 🚀 Quick Start
 
-Open PostgreSQL command line (psql) or use pgAdmin and run:
+### Prerequisites
 
-```sql
-CREATE DATABASE food_tracker;
-```
+- Node.js 18+
+- npm or yarn
+- Neon PostgreSQL account (free)
 
-Or use the command line:
-
-```bash
-# Windows (PowerShell or Command Prompt)
-psql -U postgres -c "CREATE DATABASE food_tracker"
-
-# macOS/Linux
-sudo -u postgres psql -c "CREATE DATABASE food_tracker"
-```
-
-### Step 3: Setup Database Schema
-
-Navigate to the project directory and run:
+### 1. Clone the Repository
 
 ```bash
-# Windows
-psql -U postgres -d food_tracker -f database_schema.sql
-
-# macOS/Linux
-sudo -u postgres psql -d food_tracker -f database_schema.sql
+git clone https://github.com/AvishManiar21/food-tracker-dashboard.git
+cd food-tracker-dashboard
 ```
 
-This will create the `food_entries` table with all necessary indexes and constraints.
-
-### Step 4: Install Node.js Dependencies
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-This installs:
-- express
-- pg (PostgreSQL client)
-- dotenv (environment variables)
-- cors (cross-origin requests)
-- nodemon (dev dependency)
+### 3. Set Up Database
 
-### Step 5: Configure Environment Variables
+**Create a Neon Account:**
+1. Go to https://neon.tech
+2. Sign up (free, no credit card required)
+3. Create a new project
+4. Copy the connection string
 
-1. Copy the example environment file:
+**Set Up Environment Variables:**
 
-```bash
-# Windows
-copy .env.example .env
-
-# macOS/Linux
-cp .env.example .env
-```
-
-2. Edit `.env` file with your PostgreSQL credentials:
+Create `.env.local` in the root directory:
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=food_tracker
-DB_USER=postgres
-DB_PASSWORD=your_actual_password_here
-PORT=3000
+DATABASE_URL=postgresql://user:password@ep-xxx.neon.tech/neondb?sslmode=require
 NODE_ENV=development
 ```
 
-**IMPORTANT**: Replace `your_actual_password_here` with your PostgreSQL password!
+Replace with your actual Neon connection string.
 
-### Step 6: Start the Server
+**Create Database Schema:**
 
 ```bash
-npm start
+node scripts/setup-neon-db.js
 ```
 
-For development with auto-restart on file changes:
+You should see:
+```
+✓ Connected successfully!
+✓ Database schema created successfully!
+✓ Neon database is ready to use!
+```
+
+### 4. Run Development Server
 
 ```bash
 npm run dev
 ```
 
-You should see:
+Open http://localhost:3000 in your browser.
+
+---
+
+## 📦 Project Structure
 
 ```
-Database connected successfully at: [timestamp]
-Server running on http://localhost:3000
+food-tracker-dashboard/
+├── app/
+│   ├── api/
+│   │   └── entries/
+│   │       ├── route.ts          # GET/POST/DELETE entries
+│   │       └── monthly/route.ts  # Monthly aggregations
+│   ├── components/
+│   │   └── FoodTrackerDashboard.tsx  # Main dashboard component
+│   ├── layout.tsx                # Root layout
+│   ├── page.tsx                  # Home page
+│   └── globals.css               # Global styles
+├── lib/
+│   ├── db.ts                     # Database connection
+│   └── constants.ts              # Products and bucket sizes
+├── scripts/
+│   ├── setup-neon-db.js          # Database setup script
+│   └── test-connection.js        # Connection test
+├── database_schema.sql           # SQL schema
+├── next.config.js                # Next.js configuration
+├── tsconfig.json                 # TypeScript configuration
+├── tailwind.config.ts            # Tailwind configuration
+└── package.json                  # Dependencies
 ```
 
-### Step 7: Open the Application
+---
 
-Open your web browser and navigate to:
+## 🌐 Deployment
 
-```
-http://localhost:3000
-```
+### Deploy to Vercel (Recommended)
 
-## Usage
+**Full deployment guide:** See [DEPLOYMENT.md](./DEPLOYMENT.md)
 
-1. **Add Entry**:
-   - Select a date (June 19 - July 31, 2026)
-   - Choose a product from the dropdown
-   - Select bucket size (Small, Medium, Large)
-   - Enter quantity
-   - Click "Add Entry"
+**Quick Steps:**
 
-2. **View Data**:
-   - Charts automatically update after each entry
-   - Three charts show monthly comparisons for each bucket size
-   - Blue bars = June 2026
-   - Green bars = July 2026
+1. Push your code to GitHub
+2. Go to https://vercel.com
+3. Import your repository
+4. Add environment variable:
+   - Key: `DATABASE_URL`
+   - Value: Your Neon connection string
+5. Click Deploy
 
-3. **Data Persistence**:
-   - All data is stored in PostgreSQL database
-   - Data survives server restarts
-   - Data can be accessed from any computer on the network
+Your app will be live at: `https://food-tracker-dashboard-[random].vercel.app`
 
-## Database Structure
+**Auto-Deployment:** Every git push automatically deploys to Vercel.
 
-### Table: `food_entries`
+---
 
-| Column | Type | Description |
-|--------|------|-------------|
-| id | SERIAL | Primary key (auto-increment) |
-| entry_date | DATE | Date of the entry |
-| product | VARCHAR(100) | Product name |
-| bucket_size | VARCHAR(20) | Small, Medium, or Large |
-| quantity | NUMERIC(10,2) | Quantity value |
-| created_at | TIMESTAMP | When record was created |
-| updated_at | TIMESTAMP | When record was last updated |
-
-### Unique Constraint
-- One entry per (date, product, bucket_size) combination
-- Adding to existing entry updates the quantity (adds to existing value)
-
-## API Endpoints
+## 📊 API Endpoints
 
 ### GET `/api/entries`
-Get all food entries
+Get all food entries for a date range.
 
-### GET `/api/entries/range?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD`
-Get entries for a specific date range
+**Query Parameters:**
+- `startDate` (optional): Start date (default: 2026-06-19)
+- `endDate` (optional): End date (default: 2026-07-31)
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "entry_date": "2026-06-19",
+    "product": "PICO",
+    "bucket_size": "Small",
+    "quantity": 10.5,
+    "created_at": "2026-06-18T12:00:00Z",
+    "updated_at": "2026-06-18T12:00:00Z"
+  }
+]
+```
 
 ### POST `/api/entries`
-Add or update an entry
+Add or update a food entry.
 
 **Request Body:**
 ```json
@@ -197,149 +190,130 @@ Add or update an entry
 }
 ```
 
-### GET `/api/entries/monthly`
-Get monthly aggregations
+**Response:**
+```json
+{
+  "id": 1,
+  "entry_date": "2026-06-19",
+  "product": "PICO",
+  "bucket_size": "Small",
+  "quantity": 10.5,
+  "created_at": "2026-06-18T12:00:00Z",
+  "updated_at": "2026-06-18T12:00:00Z"
+}
+```
 
-### DELETE `/api/entries/:id`
-Delete a specific entry by ID
+### GET `/api/entries/monthly`
+Get monthly aggregations.
+
+**Response:**
+```json
+[
+  {
+    "product": "PICO",
+    "bucket_size": "Small",
+    "month": "2026-06-01T00:00:00.000Z",
+    "total_quantity": "150.5"
+  }
+]
+```
 
 ### DELETE `/api/entries`
-Clear all entries (use with caution!)
+Clear all entries (use with caution).
 
-## File Structure
+---
 
-```
-food_tracker/
-├── index.html                  # Frontend application
-├── server.js                   # Backend Express server
-├── database_schema.sql         # Database setup SQL
-├── package.json                # Node.js dependencies
-├── .env                        # Environment variables (create from .env.example)
-├── .env.example                # Environment template
-├── README.md                   # This file
-└── food_tracker_dashboard.html # Original localStorage version (backup)
-```
+## 🗄️ Database Schema
 
-## Troubleshooting
+**Table:** `food_entries`
 
-### Database Connection Failed
+| Column | Type | Description |
+|--------|------|-------------|
+| id | SERIAL | Primary key |
+| entry_date | DATE | Date of entry (2026-06-19 to 2026-07-31) |
+| product | VARCHAR(100) | Product name (one of 59 products) |
+| bucket_size | VARCHAR(20) | Small, Medium, or Large |
+| quantity | NUMERIC(10,2) | Quantity value |
+| created_at | TIMESTAMP | Creation timestamp |
+| updated_at | TIMESTAMP | Last update timestamp |
 
-**Problem**: "Unable to connect to database"
+**Constraints:**
+- Unique constraint on `(entry_date, product, bucket_size)`
+- Check constraint on `bucket_size` (must be Small, Medium, or Large)
+- Check constraint on `quantity` (must be >= 0)
 
-**Solutions**:
-1. Check if PostgreSQL service is running:
-   ```bash
-   # Windows
-   services.msc  # Look for "PostgreSQL"
+**Indexes:**
+- `idx_entry_date` on `entry_date`
+- `idx_product` on `product`
+- `idx_bucket_size` on `bucket_size`
+- `idx_date_product` on `(entry_date, product)`
 
-   # macOS/Linux
-   sudo service postgresql status
-   ```
+---
 
-2. Verify database exists:
-   ```bash
-   psql -U postgres -l
-   ```
+## 🧪 Testing
 
-3. Check `.env` file credentials are correct
-
-4. Verify PostgreSQL is listening on port 5432:
-   ```bash
-   netstat -an | findstr 5432  # Windows
-   netstat -an | grep 5432     # macOS/Linux
-   ```
-
-### Port Already in Use
-
-**Problem**: "Port 3000 is already in use"
-
-**Solution**: Change the port in `.env`:
-```env
-PORT=3001
-```
-
-### Cannot Create Database
-
-**Problem**: Permission denied when creating database
-
-**Solution**: Use postgres superuser:
+**Test Database Connection:**
 ```bash
-psql -U postgres
-CREATE DATABASE food_tracker;
-\q
+node scripts/test-connection.js
 ```
 
-### Module Not Found
-
-**Problem**: "Cannot find module 'express'"
-
-**Solution**: Reinstall dependencies:
+**Test API Locally:**
 ```bash
-rm -rf node_modules  # Delete node_modules folder
-npm install
+# Start dev server
+npm run dev
+
+# In another terminal, test API
+curl http://localhost:3000/api/entries
 ```
 
-## Data Backup
+---
 
-To backup your database:
+## 🔒 Security
 
-```bash
-# Windows
-pg_dump -U postgres food_tracker > backup.sql
+- Database credentials stored in environment variables
+- `.env.local` excluded from git
+- SSL required for database connections
+- Input validation on all API endpoints
+- CORS enabled only for same-origin requests
 
-# macOS/Linux
-sudo -u postgres pg_dump food_tracker > backup.sql
-```
+---
 
-To restore from backup:
+## 📝 Products List (59 Total)
 
-```bash
-# Windows
-psql -U postgres food_tracker < backup.sql
+PICO, CHOPPED TOM, RED ENCH SAUCE, GREEN ENCH SAUCE, DARK RED ENCH SAUSE, MILD (PESTO), BAJA SAUCE, TARTER SAUCE, LETTUCE, CHEESE (SHREDDED), RANCHERO SAUCE, PANCACKE MIX, RED BEEF TAMALE, GREEN CK TAMALE, GREEN CORN TAMALE, RED MENUDO, WHITE MENUDO, COCIDO, ALBONDIGAS, CARNE ASADA, POLO ASADA, PLAIN BEEF, PLAIN CHICKEN, GROUND BEEF, CARNITAS, BEANS, RICE, BEEF TACOS, CK TACOS, BEEF FLAUTAS, CK FLAUTAS, BEEF SUPER TACO, CK SUPER TACO, MACHACA BEEF, MACHACA CK, CHILLI RELLENOS, FISH, CEVICHE, COOCKED SHRIMP, OCTOPUS, RED SALSA, GREEN SALSA, CHUNKY SALSA, GUAC SALSA, ORANGE SALSA, BROWN SALSA, GUACAMOLE, GRAVY MIX, RANCH, PITAS, ROLLED TACOS, BEEF MINI CHIMI, CK MINI CHIMI, BEEF MINI TACO, CK MINI TACO, BEEF MINI FLAUTAS, CK MINI FLAUTAS, AL PASTOR, BIRRIA
 
-# macOS/Linux
-sudo -u postgres psql food_tracker < backup.sql
-```
+---
 
-## Network Access
+## 🤝 Contributing
 
-To access the application from other computers on your network:
+Contributions welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-1. Find your IP address:
-   ```bash
-   # Windows
-   ipconfig
+---
 
-   # macOS/Linux
-   ifconfig
-   ```
-
-2. Update `index.html` API_URL (line 190):
-   ```javascript
-   const API_URL = 'http://YOUR_IP_ADDRESS:3000/api';
-   ```
-
-3. Access from other devices:
-   ```
-   http://YOUR_IP_ADDRESS:3000
-   ```
-
-## Security Notes
-
-- This application is designed for local/internal network use
-- Do NOT expose to the internet without proper authentication
-- Change default PostgreSQL passwords in production
-- Consider adding authentication middleware for production use
-
-## License
+## 📄 License
 
 ISC
 
-## Support
+---
 
-For issues or questions, please check:
-1. PostgreSQL is installed and running
-2. Database `food_tracker` exists
-3. `.env` file is configured correctly
-4. All dependencies are installed (`npm install`)
-5. Server is running (`npm start`)
+## 🙏 Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- Hosted on [Vercel](https://vercel.com/)
+- Database by [Neon](https://neon.tech/)
+- Charts by [Recharts](https://recharts.org/)
+
+---
+
+## 📞 Support
+
+- 📧 Email: avishmaniar24@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/AvishManiar21/food-tracker-dashboard/issues)
+
+---
+
+**Made with ❤️ using Claude Code**
